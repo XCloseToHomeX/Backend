@@ -11,8 +11,8 @@
 	<groupId>Backend</groupId>
 	<artifactId>XCloseToHomeX</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>HouseKeeper</name>
-	<description>HouseKeeper</description>
+	<name>XCloseToHomeX</name>
+	<description>XCloseToHomeX</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
