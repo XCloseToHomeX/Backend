@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>Backend</groupId>
-	<artifactId>HouseKeeper</artifactId>
+	<artifactId>XCloseToHomeX</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>HouseKeeper</name>
 	<description>HouseKeeper</description>

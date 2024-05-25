@@ -1,0 +1,65 @@
+package backend.xclosetohomex.houseelegantservice.interfaces.rest;
+
+import backend.xclosetohomex.houseelegantservice.domain.model.query.GetAllMensajesQuery;
+import backend.xclosetohomex.houseelegantservice.domain.model.query.GetMensajeriaTravellerByIdQuery;
+import backend.xclosetohomex.houseelegantservice.domain.service.MensajeriaTravellerCommandService;
+import backend.xclosetohomex.houseelegantservice.domain.service.MensajeriaTravellerQueryService;
+import backend.xclosetohomex.houseelegantservice.interfaces.rest.resources.CreateMensajeriaTravellerResource;
+import backend.xclosetohomex.houseelegantservice.interfaces.rest.resources.MensajeriaTravellerResource;
+import backend.xclosetohomex.houseelegantservice.interfaces.rest.transform.CreateMensajeriaTravellerCommandFromResourceAssembler;
+import backend.xclosetohomex.houseelegantservice.interfaces.rest.transform.MensajeriaTravellerResourceFromEntityAssembler;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping(value = "/api/v1/MensajesTraveller", produces = MediaType.APPLICATION_JSON_VALUE)
+@Tag(name = "MensajesTraveller", description = "Mensajeria traveller Management Endpoints")
+public class MensajeriaTravellerController {
+    private final MensajeriaTravellerQueryService mensajeriaTravellerQueryService;
+    private final MensajeriaTravellerCommandService mensajeriaTravellerCommandService;
+
+    public MensajeriaTravellerController(MensajeriaTravellerQueryService mensajeriaTravellerQueryService, MensajeriaTravellerCommandService mensajeriaTravellerCommandService) {
+        this.mensajeriaTravellerQueryService = mensajeriaTravellerQueryService;
+        this.mensajeriaTravellerCommandService = mensajeriaTravellerCommandService;
+    }
+
+    /**
+     * POST /api/v1/MensajesTraveller
+     *
+     * <p>Endpoint that creates a mensaje</p>
+     * @param resource the resource with the information to create the mensaje
+     * @return the created mensaje
+     * @see CreateMensajeriaTravellerResource
+     * @see MensajeriaTravellerResource
+     */
+    @PostMapping
+    public ResponseEntity<MensajeriaTravellerResource> createMensajeria(CreateMensajeriaTravellerResource resource) {
+
+        var createMensajeriaCommand = CreateMensajeriaTravellerCommandFromResourceAssembler.toCommandFromResource(resource);
+        var mensajeriaId = mensajeriaTravellerCommandService.handle(createMensajeriaCommand);
+
+        if (mensajeriaId == null) {
+            return ResponseEntity.badRequest().build();
+        }
+        var getMensajeriaTravellerById = new GetMensajeriaTravellerByIdQuery(mensajeriaId);
+        var mensajeria = mensajeriaTravellerQueryService.handle(getMensajeriaTravellerById);
+        if (mensajeria.isEmpty()) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        var mensajeriaResource = MensajeriaTravellerResourceFromEntityAssembler.toResourceFromEntity(mensajeria.get());
+        return new ResponseEntity<>(mensajeriaResource, HttpStatus.CREATED);
+    }
+    @GetMapping
+    public ResponseEntity<List<MensajeriaTravellerResource>> getAllMensajes() {
+        var getAllMensajesQuery = new GetAllMensajesQuery();
+        var mensajes = mensajeriaTravellerQueryService.handle(getAllMensajesQuery);
+        var mensajesResources = mensajes.stream().map(MensajeriaTravellerResourceFromEntityAssembler::toResourceFromEntity).toList();
+        return ResponseEntity.ok(mensajesResources);
+    }
+}
