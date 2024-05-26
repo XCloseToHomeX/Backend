@@ -1,4 +1,4 @@
-package com.upc.travellerservice.main.domain.repository;
+package com.upc.travellerservice.main.persistance.repository;
 
 import com.upc.travellerservice.main.domain.entities.House;
 import org.springframework.data.jpa.repository.JpaRepository;
