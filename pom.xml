@@ -9,13 +9,12 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 
-
 	<groupId>Backend</groupId>
 	<artifactId>XCloseToHomeX</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<packaging>pom</packaging>
+	<version>1.0.0-SNAPSHOT</version>
 	<name>XCloseToHomeX</name>
 	<description>XCloseToHomeX</description>
+	<packaging>pom</packaging>
 
 	<properties>
 		<maven.compiler.source>17</maven.compiler.source>
@@ -25,6 +24,7 @@
 
 	<modules>
 		<module>messaging_service</module>
+		<module>keeperservice</module>
 	</modules>
 
 	<dependencies>
