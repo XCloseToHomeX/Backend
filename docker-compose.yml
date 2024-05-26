@@ -1,0 +1,16 @@
+version: '3'
+services:
+  ### SQL database for messages
+  db-inventory:
+    container_name: db-messaging-s
+    image: mysql:latest
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: db_messaging
+      MYSQL_USER: mainuser
+      MYSQL_PASSWORD: contrasenia
+    ports:
+      - 3309:3309
+    expose:
+      - 3309
