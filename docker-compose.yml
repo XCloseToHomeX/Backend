@@ -8,8 +8,6 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: db_messaging
-      MYSQL_USER: root
-      MYSQL_PASSWORD: root
     ports:
       - "3307:3306"
     expose:
@@ -23,8 +21,6 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: db_keeper
-      MYSQL_USER: root
-      MYSQL_PASSWORD: root
     ports:
       - "3308:3306"
     expose:
@@ -38,8 +34,6 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: db_traveller
-      MYSQL_USER: root
-      MYSQL_PASSWORD: root
     ports:
       - "3309:3306"
     expose:
