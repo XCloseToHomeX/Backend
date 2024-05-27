@@ -1,16 +1,46 @@
 version: '3'
 services:
   ### SQL database for messages
-  db-inventory:
-    container_name: db-messaging-s
+  db-messaging:
+    container_name: db-messaging
     image: mysql:latest
     restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: db_messaging
-      MYSQL_USER: mainuser
-      MYSQL_PASSWORD: contrasenia
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
     ports:
-      - 3309:3309
+      - "3307:3306"
     expose:
-      - 3309
+      - 3306
+
+  ### SQL database for keeper
+  db-keeper:
+    container_name: db-keeper
+    image: mysql:latest
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: db_keeper
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+    ports:
+      - "3308:3306"
+    expose:
+      - 3306
+
+  ### SQL database for keeper
+  db-traveller:
+    container_name: db-traveller
+    image: mysql:latest
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: db_traveller
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+    ports:
+      - "3309:3306"
+    expose:
+      - 3306
