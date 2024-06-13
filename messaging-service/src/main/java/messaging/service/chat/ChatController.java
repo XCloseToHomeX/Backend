@@ -13,7 +13,9 @@ public class ChatController {
     @MessageMapping("/chat/{roomId}")
     @SendTo("/topic/{roomId}")
     public ChatMessage chatRoom(@DestinationVariable String roomId, ChatMessage message){
-        return message;
+
+        //return message;
+        return new ChatMessage(message.getContent(), message.getSender());
     }
 
     @MessageMapping("/chat.sendMessagePublic")
