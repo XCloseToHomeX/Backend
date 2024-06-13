@@ -36,7 +36,7 @@ public class KeepersController {
     KeeperQueryService keeperQueryService;
 
     @PostMapping
-    public ResponseEntity<KeeperResource> createKeeperResource(CreateKeeperResource resource){
+    public ResponseEntity<KeeperResource> createKeeperResource(@RequestBody CreateKeeperResource resource){
         CreateKeeperCommand createKeeperCommand = CreateKeeperCommandFromResourceAssembler.toCommandFromResource(resource);
         Long keeperId = keeperCommandService.handle(createKeeperCommand);
         if(keeperId == 0L){
@@ -69,7 +69,7 @@ public class KeepersController {
     }
 
     @PutMapping("/{keeperId}")
-    public ResponseEntity<KeeperResource> updateKeeper(@PathVariable Long keeperId, UpdateKeeperResource resource){
+    public ResponseEntity<KeeperResource> updateKeeper(@PathVariable Long keeperId, @RequestBody UpdateKeeperResource resource){
         UpdateKeeperCommand updateKeeperCommand = UpdateKeeperCommandFromResourceAssembler
                 .toCommandFromResource(keeperId, resource);
         Optional<Keeper> updatedKeeper = keeperCommandService.handle(updateKeeperCommand);
