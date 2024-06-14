@@ -6,14 +6,19 @@ import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+//@Controller
+@RestController
 public class ChatController {
 
     @MessageMapping("/chat/{roomId}")
     @SendTo("/topic/{roomId}")
-    public ChatMessage chatRoom(@DestinationVariable String roomId, ChatMessage message){
-        return message;
+    public ChatMessage chatRoom(@DestinationVariable String roomId, @Payload ChatMessage message){
+
+        //return message;
+        System.out.println(message);
+        return new ChatMessage(message.getContent(), message.getSender());
     }
 
     @MessageMapping("/chat.sendMessagePublic")
